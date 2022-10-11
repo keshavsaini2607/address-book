@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import emptyImage from "../../assets/add.svg";
+import ContactList from "../ContactList";
 import Form from "../Form";
 
 const Canvas = ({ contacts }) => {
   const [creating, setCreating] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   return (
     <div className="bg-white shadow-lg rounded-md w-[70%] h-[60vh] absolute mt-20 left-[15%]">
-      {contacts ? (
-        <h1>Show Contacts</h1>
+      {creating ? (
+        <Form setCreating={setCreating} isEdit={isEdit} setIsEdit={setIsEdit} />
       ) : (
         <React.Fragment>
-          {creating ? (
-            <Form />
+          {contacts ? (
+            <ContactList setCreating={setCreating} setIsEdit={setIsEdit} />
           ) : (
             <div className="flex flex-col items-center justify-center p-8">
               <img
