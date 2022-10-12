@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import emptyImage from "../../assets/add.svg";
 import ContactList from "../ContactList";
 import Form from "../Form";
 
-const Canvas = ({ contacts }) => {
+const Canvas = ({  }) => {
   const [creating, setCreating] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    const contact = localStorage.getItem("contacts");
+    if(contact) {
+      console.log(JSON.parse(contact))
+      setContacts(JSON.parse(contact))
+    }
+  },[])
 
   return (
     <div className="bg-white shadow-lg rounded-md w-[70%] h-[60vh] absolute mt-20 left-[15%]">
@@ -14,7 +23,9 @@ const Canvas = ({ contacts }) => {
       ) : (
         <React.Fragment>
           {contacts ? (
-            <ContactList setCreating={setCreating} setIsEdit={setIsEdit} />
+            <React.Fragment>
+            <ContactList setCreating={setCreating} setIsEdit={setIsEdit} contacts={contacts} />
+            </React.Fragment>
           ) : (
             <div className="flex flex-col items-center justify-center p-8">
               <img

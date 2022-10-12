@@ -2,7 +2,7 @@ import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import {AiOutlineArrowRight} from 'react-icons/ai';
 
-const Contact = ({ setIsEdit, setCreating }) => {
+const Contact = ({ setIsEdit, setCreating, contact }) => {
   return (
     <div
       className="p-3 bg-blue-200 rounded-md w-[48%] flex items-center justify-between cursor-pointer"
@@ -14,8 +14,8 @@ const Contact = ({ setIsEdit, setCreating }) => {
       <div className="flex items-center space-x-5">
         <FaUserCircle size="40px" />
         <div className="flex flex-col">
-          <span className="font-semibold text-lg">Keshav Saini</span>
-          <span>skeshav162@gmail.com</span>
+          <span className="font-semibold text-lg">{contact.fullname}</span>
+          <span>{contact.email}</span>
         </div>
       </div>
       <span className="text-blue-900 text-sm font-bold flex items-center space-x-2">

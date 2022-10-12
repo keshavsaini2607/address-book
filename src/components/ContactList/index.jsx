@@ -1,7 +1,7 @@
 import React from 'react'
 import Contact from './Contact'
 
-const ContactList = ({setCreating, setIsEdit}) => {
+const ContactList = ({setCreating, setIsEdit, contacts}) => {
   return (
     <div className='p-4 flex flex-wrap gap-5 justify-between'>
     <div className='w-full flex justify-end'>
@@ -9,7 +9,9 @@ const ContactList = ({setCreating, setIsEdit}) => {
             Create New
         </button>
     </div>
-        <Contact setCreating={setCreating} setIsEdit={setIsEdit} />
+        {
+          contacts.map((contact) => <Contact setCreating={setCreating} setIsEdit={setIsEdit} contact={contact} />)
+        }
     </div>
   )
 }
