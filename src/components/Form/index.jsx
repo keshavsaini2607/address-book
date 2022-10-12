@@ -1,30 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 
 const Form = ({ setCreating, isEdit, setIsEdit }) => {
+  const [contact, setContact] = useState(null);
   const {
     register,
     handleSubmit,
     formState: { errors },
     trigger,
-    reset
-  } = useForm();
+    reset,
+    setValue,
+    getValues
+  } = useForm({
+    defaultValues: {
+      id: Math.random().toString(),
+      fullname: "",
+      email: "",
+      phone: null,
+      birthday: null
+    }
+  });
+
+  const editContact = () => {
+    const { fullname, email, phone, birthday } = getValues();
+    const allContacts = localStorage.getItem("contacts");
+    const toUpdate = JSON.parse(allContacts).filter((person) => person.id === contact.id);
+    toUpdate.fullname = fullname;
+    toUpdate.email = email
+    toUpdate.phone = phone
+    toUpdate.birthday = birthday
+  }
 
   const submit = (data) => {
+    if(isEdit) {
+      editContact()
+      return;
+    }
     const contacts = localStorage.getItem("contacts");
-    if(contacts) {
+    if (contacts) {
       const oldContacts = JSON.parse(contacts);
       oldContacts.push(data);
       localStorage.setItem("contacts", JSON.stringify(oldContacts));
     } else {
       const newContact = JSON.stringify([data]);
-      localStorage.setItem("contacts", newContact)
+      localStorage.setItem("contacts", newContact);
     }
-    reset()
-    window.location.reload()
+    reset();
+    window.location.reload();
   };
 
+  useEffect(() => {
+    let attached = true;
+
+    if (attached) {
+      const currContact = localStorage.getItem("current-contact");
+      setContact(JSON.parse(currContact));
+      setValue("fullname", contact?.fullname);
+      setValue("email", contact?.email);
+      setValue("phone", contact?.phone);
+      setValue("birthday", contact?.birthday);
+    }
+
+    return () => {
+      attached = false;
+    };
+  }, [!contact]);
+
+  
+
+  console.log({ contact });
 
   return (
     <div className="p-6">
@@ -35,6 +80,7 @@ const Form = ({ setCreating, isEdit, setIsEdit }) => {
           onClick={() => {
             setCreating(false);
             setIsEdit(false);
+            localStorage.removeItem("current-contact");
           }}
         />
         <h1 className="text-lg font-semibold">
@@ -82,7 +128,7 @@ const Form = ({ setCreating, isEdit, setIsEdit }) => {
           <label className="col-form-label">Phone:</label>
           <input
             type="text"
-            className={`input`} 
+            className={`input`}
             placeholder="Phone number"
             {...register("phone", {
               required: "Phone is Required",
@@ -115,6 +161,14 @@ const Form = ({ setCreating, isEdit, setIsEdit }) => {
           )}
         </div>
         <div className="flex justify-end w-full">
+          {isEdit && (
+            <button
+              className="p-4 bg-red-500 mr-5 text-white px-8 rounded-full mt-10"
+              type="submit"
+            >
+              Delete Contact
+            </button>
+          )}
           <button
             className="p-4 bg-blue-500 text-white px-8 rounded-full mt-10"
             type="submit"

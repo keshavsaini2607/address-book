@@ -10,6 +10,7 @@ const Canvas = ({  }) => {
 
   useEffect(() => {
     const contact = localStorage.getItem("contacts");
+    
     if(contact) {
       console.log(JSON.parse(contact))
       setContacts(JSON.parse(contact))
