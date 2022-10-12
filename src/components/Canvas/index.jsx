@@ -23,7 +23,7 @@ const Canvas = ({  }) => {
         <Form setCreating={setCreating} isEdit={isEdit} setIsEdit={setIsEdit} />
       ) : (
         <React.Fragment>
-          {contacts ? (
+          {contacts.length > 0 ? (
             <React.Fragment>
             <ContactList setCreating={setCreating} setIsEdit={setIsEdit} contacts={contacts} />
             </React.Fragment>

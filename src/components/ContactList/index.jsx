@@ -49,6 +49,7 @@ const ContactList = ({ setCreating, setIsEdit, contacts }) => {
       </div>
       {filteredContacts.map((contact) => (
         <Contact
+          key={contact.id}
           setCreating={setCreating}
           setIsEdit={setIsEdit}
           contact={contact}
