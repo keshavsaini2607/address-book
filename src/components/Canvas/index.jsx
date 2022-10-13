@@ -18,7 +18,7 @@ const Canvas = ({  }) => {
   },[])
 
   return (
-    <div className="bg-white shadow-lg rounded-md w-[70%] h-[60vh] absolute mt-20 left-[15%]">
+    <div className="bg-white shadow-lg rounded-md w-full md:w-[70%] md:left-[15%] h-screen md:h-[60vh] md:overflow-y-scroll absolute mt-20">
       {creating ? (
         <Form setCreating={setCreating} isEdit={isEdit} setIsEdit={setIsEdit} />
       ) : (

@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useWindowSize } from "../../hooks/WindowSize";
 import Contact from "./Contact";
 
 const ContactList = ({ setCreating, setIsEdit, contacts }) => {
   const [filteredContacts, setFilteredContacts] = useState([]);
   const searchRef = useRef("");
+  const { width } = useWindowSize();
 
   useEffect(() => {
     let attached = true;
@@ -36,15 +38,15 @@ const ContactList = ({ setCreating, setIsEdit, contacts }) => {
       <div className="w-full flex justify-end">
         <input
           placeholder="Search by name, email, phone number"
-          className="w-[35%] px-5 rounded-md border-[1px] border-gray-400 mr-5"
+          className="w-[80%] px-5 rounded-md border-[1px] border-gray-400 mr-2 md:w-[35%]"
           ref={searchRef}
           onChange={() => search(searchRef.current.value)}
         />
         <button
-          className="bg-[#0052CC] px-6 py-3 text-white rounded-md"
+          className="bg-[#0052CC] px-4 py-2 text-white rounded-md"
           onClick={() => setCreating(true)}
         >
-          Create New
+          {width > 768 ? "Create New" : <span className="text-3xl">+</span>}
         </button>
       </div>
       {filteredContacts.map((contact) => (

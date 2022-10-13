@@ -22,7 +22,7 @@ code {
 }
 
 .input-container {
-  @apply flex flex-col mt-5 w-[48%];
+  @apply flex flex-col mt-5 w-[100%] md:w-[48%];
 }
 
 .input {

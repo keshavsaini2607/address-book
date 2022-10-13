@@ -189,7 +189,7 @@ const Form = ({ setCreating, isEdit, setIsEdit }) => {
             <div className="flex justify-end w-full">
                {isEdit && (
                   <button
-                     className="p-4 bg-red-500 mr-5 text-white px-8 rounded-full mt-10"
+                     className="p-4 bg-red-500 mr-5 text-white px-6 md:px-8 rounded-full mt-10"
                      type="button"
                      onClick={deleteContact}
                   >
