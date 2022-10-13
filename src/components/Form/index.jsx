@@ -19,11 +19,12 @@ const Form = ({ setCreating, isEdit, setIsEdit }) => {
          email: "",
          phone: null,
          birthday: null,
+         isFavourite: false,
       },
    });
 
    const editContact = () => {
-      const { fullname, email, phone, birthday } = getValues();
+      const { fullname, email, phone, birthday, isFavourite } = getValues();
       const contacts = localStorage.getItem("contacts");
       const parsedContacts = JSON.parse(contacts);
 
@@ -33,6 +34,7 @@ const Form = ({ setCreating, isEdit, setIsEdit }) => {
             parsedContacts[i].email = email;
             parsedContacts[i].phone = phone;
             parsedContacts[i].birthday = birthday;
+            parsedContacts[i].isFavourite = isFavourite;
             break; //Stop this loop, we found it!
          }
       }
@@ -60,6 +62,8 @@ const Form = ({ setCreating, isEdit, setIsEdit }) => {
          editContact();
          return;
       }
+      data.isFavourite = false;
+      console.log(data)
       const contacts = localStorage.getItem("contacts");
       if (contacts) {
          const oldContacts = JSON.parse(contacts);
@@ -83,14 +87,13 @@ const Form = ({ setCreating, isEdit, setIsEdit }) => {
          setValue("email", contact?.email);
          setValue("phone", contact?.phone);
          setValue("birthday", contact?.birthday);
+         setValue("isFavourite", contact?.isFavourite);
       }
 
       return () => {
          attached = false;
       };
    }, [!contact]);
-
-   console.log({ contact });
 
    return (
       <div className="p-6">
