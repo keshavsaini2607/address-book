@@ -18,7 +18,7 @@ const Navbar = () => {
                }
             }
          }
-         console.log({importedContacts})
+         console.log({ importedContacts });
          importedContacts.map((person) => {
             if (person.isFavourite === "false") person.isFavourite = false;
             else person.isFavourite = true;
@@ -27,7 +27,7 @@ const Navbar = () => {
          if (newContacts.length > 0) {
             localStorage.setItem("contacts", JSON.stringify(newContacts));
             window.location.reload();
-         } 
+         }
       }
    }, [importedContacts]);
 
@@ -66,7 +66,9 @@ const Navbar = () => {
 
    useEffect(() => {
       const localContacts = getContacts();
-      setContacts(localContacts);
+      if (localContacts) {
+         setContacts(localContacts);
+      }
    }, []);
 
    return (
