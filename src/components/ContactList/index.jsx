@@ -19,17 +19,12 @@ const ContactList = ({ setCreating, setIsEdit, contacts }) => {
    }, [contacts]);
 
    const search = (query) => {
-      if (!query) {
-         setFilteredContacts(contacts);
-         return;
-      }
-      const filtered = filteredContacts.filter(
+      const filtered = contacts.filter(
          (contact) =>
-            contact.fullname.includes(query) ||
-            contact.email.includes(query) ||
-            contact.phone.includes(query)
+            contact.fullname.toLocaleLowerCase().includes(query) ||
+            contact.email.toLocaleLowerCase().includes(query) ||
+            contact.phone.toLocaleLowerCase().includes(query)
       );
-
       setFilteredContacts(filtered);
    };
 
@@ -58,10 +53,9 @@ const ContactList = ({ setCreating, setIsEdit, contacts }) => {
          </div>
          <div className="w-full flex justify-between flex-wrap gap-5">
             {filteredContacts.map((contact) => (
-               <React.Fragment>
+               <React.Fragment key={contact.id}>
                   {contact.isFavourite ? (
                      <Contact
-                        key={contact.id}
                         setCreating={setCreating}
                         setIsEdit={setIsEdit}
                         contact={contact}
@@ -74,10 +68,9 @@ const ContactList = ({ setCreating, setIsEdit, contacts }) => {
             <hr />
          </div>
          {filteredContacts.map((contact) => (
-            <React.Fragment>
+            <React.Fragment key={contact.id}>
                {!contact.isFavourite ? (
                   <Contact
-                     key={contact.id}
                      setCreating={setCreating}
                      setIsEdit={setIsEdit}
                      contact={contact}

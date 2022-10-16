@@ -8,8 +8,6 @@ const Contact = ({ setIsEdit, setCreating, contact }) => {
    const windowSize = useWindowSize();
    const [isFavourite, setIsFavourite] = useState(false);
 
-   console.log(windowSize);
-
    const saveCurrentContact = () => {
       localStorage.setItem("current-contact", JSON.stringify(contact));
    };
@@ -19,7 +17,6 @@ const Contact = ({ setIsEdit, setCreating, contact }) => {
       const contacts = JSON.parse(allContacts);
       const index = contacts.findIndex((person) => person.id === contact.id);
       setIsFavourite(contacts[index].isFavourite);
-      console.log(contacts[index].isFavourite);
    };
 
    useEffect(() => {
@@ -44,8 +41,6 @@ const Contact = ({ setIsEdit, setCreating, contact }) => {
       checkFavourite();
       window.location.reload()
    };
-
-   //  console.log({contact})
 
    return (
       <div className="p-3 bg-blue-200 rounded-md w-full md:w-full lg:w-[48%] flex items-center justify-between">
