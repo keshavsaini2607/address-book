@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { getContacts } from "../../helpers";
-import { csv } from "d3";
 import { parse } from "papaparse";
 
 const Navbar = () => {
@@ -19,6 +18,7 @@ const Navbar = () => {
                }
             }
          }
+         console.log({importedContacts})
          importedContacts.map((person) => {
             if (person.isFavourite === "false") person.isFavourite = false;
             else person.isFavourite = true;
@@ -41,7 +41,7 @@ const Navbar = () => {
          key: "email",
       },
       {
-         label: "Full Name",
+         label: "fullname",
          key: "fullname",
       },
       {
